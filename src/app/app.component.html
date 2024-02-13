@@ -37,15 +37,18 @@
 
 <main class="main">
   <div class="content">
-    <form [formGroup]="imageUploadForm">
-      <input (change)="this.onFileSelected($event)" type="file" accept="image/*" formControlName="fileInput">
-    </form>
-    <div class="left-side" style="margin-top:20px;margin-right: 10px;">
+    <div class="left-side" style="margin-top:10px;margin-right: 25px;">
+      <form [formGroup]="imageUploadForm">
+        <div>
+          <input (change)="this.onFileSelected($event)" type="file" accept="image/*" formControlName="fileInput">
+        </div>
+      </form>
       <p>Source</p>
       <img [src]="sourceImage" width="400" />
       <p>{{sourceSize}}</p>
     </div>
-    <div class="right-side" style="margin-top:20px;">
+    <div class="right-side" style="margin-top:10px;">
+      <input type="number" placeholder="Max Size In MB" (change)="this.sizeChange($event)">
       <p>Result</p>
       <img [src]="resultImage" width="400" />
       <p>{{resultSize}}</p>

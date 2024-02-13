@@ -14,6 +14,7 @@ export class AppComponent {
   resultImage: string;
   sourceSize: string;
   resultSize: string;
+  compressSize: number;
 
   constructor(private formBuilder: FormBuilder, private ng2ImgMax: Ng2ImgMaxService) {
     this.imageUploadForm = this.formBuilder.group({
@@ -23,9 +24,12 @@ export class AppComponent {
     this.resultImage = 'https://angular.io/assets/images/logos/angular/angular.svg';
     this.sourceSize = '';
     this.resultSize = '';
+    this.compressSize = 1;
   }
 
   onFileSelected(event: any) {
+    this.resultImage = 'https://angular.io/assets/images/logos/angular/angular.svg';
+    this.resultSize = '';
     const file: File = event.target.files[0];
     if (file) {
       var reader = new FileReader();
@@ -34,7 +38,7 @@ export class AppComponent {
         this.sourceSize = ((file.size) / 1024) / 1024 + " MB";
       }
       reader.readAsDataURL(file);
-      const maxSizeInMB = 1;
+      const maxSizeInMB = this.compressSize;
       this.compressImage(file, maxSizeInMB);
     }
   }
@@ -52,4 +56,10 @@ export class AppComponent {
         console.log(error.reason);
       });
   }
+
+  sizeChange(event: any) {
+    this.compressSize = event.target.value;
+  }
+
+
 }
